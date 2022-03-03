@@ -1,50 +1,40 @@
-computerPlay();
-
 function computerPlay() {
     let enemyTurn = Math.floor(Math.random()*3);
-    if (enemyTurn === 0) enemyTurn = "Rock";
-    if (enemyTurn === 1) enemyTurn = "Paper";
-    if (enemyTurn === 2) enemyTurn = "Scissors";
-    return playerSelection();
+    if (enemyTurn === 0) enemyTurn = "rock";
+    if (enemyTurn === 1) enemyTurn = "paper";
+    if (enemyTurn === 2) enemyTurn = "scissors";
+    return enemyTurn;
+}
 
-
-function playerSelection() {
-    let yourTurn = prompt("Your Turn:")
-    yourTurn.toLowerCase();
-    yourTurn = yourTurn.charAt(0).toUpperCase() + yourTurn.slice(1).toLowerCase();
-    if (yourTurn === "Rock" || yourTurn === "Paper" || yourTurn === "Scissors") {  jury()
-    } else {
-        playerSelection();
-    }
-
-
-
-
-function jury() {
+function playRound(playerSelection, computerSelection) {
+    playerSelection = playerSelection.toLowerCase();
     switch (true) {
-        case yourTurn === enemyTurn:
-            alert("draw");
-            computerPlay;
+        case playerSelection === computerSelection:
+            return("draw");
             break;
-        case yourTurn === "Rock" && enemyTurn === "Paper":
-            alert("You Lose! Paper beats Rock");
+        case playerSelection === "rock" && computerSelection === "paper":
+            return("You Lose! Paper beats Rock");
             break;
-        case yourTurn === "Paper" && enemyTurn === "Scissors":
-            alert("You Lose! Scissors beats Paper");
+        case playerSelection === "paper" && computerSelection === "scissors":
+            return("You Lose! Scissors beats Paper");
             break;
-        case yourTurn === "Scissors" && enemyTurn === "Rock":
-            alert("You Lose! Rock beats Scissors");
+        case playerSelection === "scissors" && computerSelection === "rock":
+            return("You Lose! Rock beats Scissors");
             break;
-        case yourTurn === "Scissors" && enemyTurn === "Paper":
-            alert("You Win! Scissors beats Paper");
+        case playerSelection === "scissors" && computerSelection === "paper":
+            return("You Win! Scissors beats Paper");
             break;
-        case yourTurn === "Paper" && enemyTurn === "Rock":
-            alert("You Win! Paper beats Rock");
+        case playerSelection === "paper" && computerSelection === "rock":
+            return("You Win! Paper beats Rock");
             break;
-        case yourTurn === "Rock" && enemyTurn === "Scissors":
-            alert("You Win! Rock beats Scissors");
+        case playerSelection === "rock" && computerSelection === "scissors":
+            return("You Win! Rock beats Scissors");
             break;
-
-}}}};
+    };
+}
+ 
+  const playerSelection = "PAPER";
+  const computerSelection = computerPlay();
+  console.log(playRound(playerSelection, computerSelection));
 
 
