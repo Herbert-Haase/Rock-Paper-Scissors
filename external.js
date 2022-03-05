@@ -32,9 +32,35 @@ function playRound(playerSelection, computerSelection) {
             break;
     };
 }
- 
-  const playerSelection = "PAPER";
-  const computerSelection = computerPlay();
-  console.log(playRound(playerSelection, computerSelection));
+
+
+
+function playGame() {
+    let winRatio = 0;
+
+    function evaluateRound() {
+        let playerSelection = prompt("Your Turn:");
+            let computerSelection = computerPlay();
+            let thisRound = playRound(playerSelection, computerSelection);
+            if (thisRound[4] === "W") { 
+                winRatio++;
+            } else if (thisRound[4] === "L") {
+                winRatio--;
+            };
+            console.log(thisRound);
+    }
+    let result;
+    for(let i = 0; i < 5; i++) {
+    evaluateRound();
+    }
+    if (winRatio === 0) {
+        console.log("Ended on a draw. tie breaker round:");  
+        evaluateRound();
+    };
+    winRatio > 0 ? result = "You won the 5 round game" : result = "You lost the 5 round game";
+    return result;
+}
+
+  console.log(game());
 
 
