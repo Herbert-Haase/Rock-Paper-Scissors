@@ -7,7 +7,6 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase();
     switch (true) {
         case playerSelection === computerSelection:
             return("draw");
@@ -35,11 +34,11 @@ function playRound(playerSelection, computerSelection) {
 
 
 
-function playGame() {
+function playGame(yourTurn) {
     let winRatio = 0;
 
     function evaluateRound() {
-        let playerSelection = prompt("Your Turn:");
+        let playerSelection = yourTurn;
             let computerSelection = computerPlay();
             let thisRound = playRound(playerSelection, computerSelection);
             if (thisRound[4] === "W") { 
@@ -61,6 +60,14 @@ function playGame() {
     return result;
 }
 
-  console.log(game());
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        alert(button.id);
+    });
+});
+
+
+
 
 
