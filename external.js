@@ -6,7 +6,8 @@ function computerPlay() {
     return enemyTurn;
 }
 
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection) {
+    const computerSelection = computerPlay()
     switch (true) {
         case playerSelection === computerSelection:
             return("draw");
@@ -63,7 +64,20 @@ function playGame(yourTurn) {
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-        alert(button.id);
+        let demoDiv = document.getElementById("demo");
+        if(demoDiv.firstElementChild) demoDiv.removeChild(demoDiv.firstElementChild);
+        let text = document.createElement("div");
+        text.textContent = playRound(button.id);
+        demoDiv.appendChild(text);
+    });
+});
+
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        let round = document.querySelector('strong');    
+        let roundAmount = parseInt(round.textContent.charAt(0)); 
+        round.textContent = `${++roundAmount}/5`;    
     });
 });
 
