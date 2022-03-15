@@ -72,18 +72,21 @@ buttons.forEach((button) => {
 
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-        let round = document.querySelector('strong');    
+        let round = document.querySelector('strong');  
+        let text = document.querySelector('.five');
         let roundAmount = parseInt(round.textContent.charAt(0)); 
-        round.textContent = `${++roundAmount}/5`
+        ++roundAmount;
+        if(roundAmount > 5) roundAmount = 1;
+        round.textContent = `${roundAmount}/5`
         
-        
+        if(roundAmount !== 5) {
+            text.textContent = "";
+        }
         if(roundAmount === 5) {
-            let div = document.querySelector('div');
-            if(div.nextElementSibling.style.color === 'red') div.nextElementSibling.remove();
-            let text = document.createElement('p');
             text.textContent = decideGame();
-            text.style.color = 'red';
-            body.insertBefore(text, div.nextElementSibling);
+            text.style.cssText = 'color: red';
+
+            winRatio = 0;
         };    
     });
 });
