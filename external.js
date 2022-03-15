@@ -34,52 +34,60 @@ function playRound(playerSelection) {
 }
 
 
-
-function playGame(yourTurn) {
-    let winRatio = 0;
-
     function evaluateRound() {
-        let playerSelection = yourTurn;
-            let computerSelection = computerPlay();
-            let thisRound = playRound(playerSelection, computerSelection);
-            if (thisRound[4] === "W") { 
+        let demoId = document.querySelector('#demo');
+        let thisRound = demoId.firstElementChild.textContent;
+            if (thisRound.charAt(4) === "W") { 
                 winRatio++;
-            } else if (thisRound[4] === "L") {
+            } else if (thisRound.charAt(4) === "L") {
                 winRatio--;
             };
-            console.log(thisRound);
     }
-    let result;
-    for(let i = 0; i < 5; i++) {
-    evaluateRound();
+    function decideGame() {
+        if(winRatio < 0) {
+            return "You lost";
+        } else {
+            return "You won";
+        }
     }
-    if (winRatio === 0) {
-        console.log("Ended on a draw. tie breaker round:");  
-        evaluateRound();
-    };
-    winRatio > 0 ? result = "You won the 5 round game" : result = "You lost the 5 round game";
-    return result;
-}
+    
 
 const buttons = document.querySelectorAll('button');
+const body = document.querySelector('body');
+let winRatio = 0;
+
+
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
         let demoDiv = document.getElementById("demo");
         if(demoDiv.firstElementChild) demoDiv.removeChild(demoDiv.firstElementChild);
-        let text = document.createElement("div");
-        text.textContent = playRound(button.id);
-        demoDiv.appendChild(text);
+        let text = document.createElement("p");
+        text.textContent = playRound(button.textContent);
+        demoDiv.appendChild(text)
+        evaluateRound();
     });
 });
+
 
 
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
         let round = document.querySelector('strong');    
         let roundAmount = parseInt(round.textContent.charAt(0)); 
-        round.textContent = `${++roundAmount}/5`;    
+        round.textContent = `${++roundAmount}/5`
+        
+        
+        if(roundAmount === 5) {
+            let div = document.querySelector('div');
+            if(div.nextElementSibling.style.color === 'red') div.nextElementSibling.remove();
+            let text = document.createElement('p');
+            text.textContent = decideGame();
+            text.style.color = 'red';
+            body.insertBefore(text, div.nextElementSibling);
+        };    
     });
 });
+
 
 
 
